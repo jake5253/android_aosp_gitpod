@@ -21,7 +21,7 @@ RUN sudo apt-get update && \
     && sudo apt-get clean \
     && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN sudo curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
+RUN sudo curl https://storage.googleapis.com/git-repo-downloads/repo -o /usr/local/bin/repo
 RUN sudo chmod 755 /usr/local/bin/*
 
 RUN echo "export USE_CCACHE=1" | sudo tee -a /etc/profile.d/android
