@@ -2,8 +2,8 @@ image: ubuntu:18.04
 
 tasks:
   - name: Dependencies
-  - init: gp.sh -d
+  - init: bash './gp.sh -d'
 
   - name: RepoInit
-  - init: gp.sh -r
-  - command: gp.sh -s
+  - init: bash './gp.sh -r'
+  - command: bash './gp.sh -s'
