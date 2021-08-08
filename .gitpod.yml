@@ -2,8 +2,8 @@ image: ubuntu:18.04
 
 tasks:
   - name: Dependencies
-  - init: bash './gp.sh -d'
+  - init: bash '/workspace/android_aosp_gitpod/gp.sh -d'
 
   - name: RepoInit
-  - init: bash './gp.sh -r'
-  - command: bash './gp.sh -s'
+  - init: bash '/workspace/android_aosp_gitpod/gp.sh -r'
+  - command: bash '/workspace/android_aosp_gitpod/gp.sh -s'
