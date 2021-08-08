@@ -18,9 +18,12 @@ repo_sync () {
 }
 
 add_marlin() {
-    [[ ! -d .repo/local_manifests]] && mkdir -p .repo/local_manifests
-    cat EOF | tee -a .repo/local_manifests/roomservice.xml
+    [[ ! -d .repo/local_manifests ]] && mkdir -p .repo/local_manifests
+    cat << EOF | tee -a .repo/local_manifests/roomservice.xml
+<manifest>
 <project name=/devices/google/marlin path=/devices/google/marlin />
+</manifest>
+EOF
 }
 case $1 in
     -d)
