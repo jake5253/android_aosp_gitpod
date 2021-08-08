@@ -1,2 +1,7 @@
-image:
-  file: .gitpod.Dockerfile
+image: ubuntu:18.04
+
+tasks:
+  - name: RepoInit
+  - before: mkdir ~/bin && curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo && chmod a+x ~/bin/repo
+  - init: repo init -u https://android.googlesource.com/platform/manifest -c --submodules --depth=1
+  - command: repo sync -j$(nproc)
