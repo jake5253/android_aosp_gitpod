@@ -1,5 +1,10 @@
 #!/bin/bash
 SUBMODULES=true;
+for kp in $(cat ./credentials); do
+{
+  export $(echo $kp | cut -d= -f1)=$(echo $kp | cut -d= -f2);
+}
+done
 
 display_help () {
     cat << EOF
@@ -54,11 +59,28 @@ fn_downloadsorce () {
     repo sync -j$(nproc);
 }
 
+fn_git_conf () {
+  [[ $1 = "name" ]] && {
+    [[ -z $git_user_name]] && \
+      read -p "Enter your name: " git_user_name
+  git config --global user.name "$git_user_name"
+  }
+  [[ $1 = "email" ]] && {
+    [[ -z $git_user_email]] && \
+      read -p "Enter your email: " git_user_email
+  git config --global user.email "$git_user_email"
+  }
+}
+
+[[ -z $(git config --get user.name) ]] && fn_git_conf name;
+[[ -z $(git config --get user.email) ]] && fn_git_conf email;
+
+
 echo "Initializing repo";
 fn_initsource || echo "ERROR!" >&2;
 
 echo "Downloading source";
 fn_downloadsorce || echo "ERROR!" >&2;
 
-ccache -M 50G;
+sudo ccache -M 50G;
 source build/envsetup.sh;

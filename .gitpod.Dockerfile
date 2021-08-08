@@ -15,7 +15,7 @@ RUN echo "dash dash/sh boolean false" | sudo debconf-set-selections && \
 
 RUN sudo apt-get update && \
     sudo apt-get install -y git-core gnupg flex bison build-essential \
-    zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 \
+    zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 ccache \
     libncurses5-dev lib32ncurses5-dev x11proto-core-dev libx11-dev \
     lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig \
     && sudo apt-get clean \
@@ -28,7 +28,8 @@ RUN echo "export USE_CCACHE=1" | sudo tee -a /etc/profile.d/android
 ENV USE_CCACHE 1
 ENV CCACHE_DIR /ccache
 
-COPY entry.sh /script/entry.sh
-RUN sudo chmod 755 /script/entry.sh
+COPY setup.sh /script/setup.sh
+RUN sudo chmod 755 /script/setup.sh
+RUN ["/script/setup.sh"]
 
-ENTRYPOINT ["/script/entry.sh"]
+ENTRYPOINT ["bash"]
